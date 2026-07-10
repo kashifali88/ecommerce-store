@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 import HorizontalCard from "../components/HorizontalCard";
 
 function ProductDetails() {
+      const BACKEND = import.meta.env.VITE_BACKEND_URL;
   const [data, setData] = useState({});
   const [activeImage, setActiveImage] = useState("");
   const [loading, setLoading] = useState(false);
@@ -21,7 +22,7 @@ function ProductDetails() {
       setLoading(true);
       setError(null);
 
-      const res = await fetch(`/api/product/fetch-single/${id}`);
+      const res = await fetch(`${BACKEND}/api/product/fetch-single/${id}`);
       const result = await res.json();
 
       if (!res.ok || result.success === false) {
@@ -43,7 +44,7 @@ function ProductDetails() {
   const handleAddToCart = async(productId) => {
 try {
   dispatch(addToCartStart())
-  const res = await fetch("/api/cart/add", {
+  const res = await fetch(`${BACKEND}/api/cart/add`, {
     method:"POST",
     headers: {
       "Content-Type": "application/json"

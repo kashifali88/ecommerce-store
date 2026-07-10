@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
 function Categories() {
+      const BACKEND = import.meta.env.VITE_BACKEND_URL;
   const [name, setName] = useState("");
   const [image, setImage] = useState("");
   const [file, setFile] = useState(null);
@@ -29,7 +30,7 @@ function Categories() {
       const formData = new FormData();
       formData.append("file", file);
 
-      const res = await fetch("/api/upload", {
+      const res = await fetch(`${BACKEND}/api/upload`, {
         method: "POST",
         body: formData,
       });
@@ -80,7 +81,7 @@ function Categories() {
     try {
       setLoading(true);
 
-      const res = await fetch("/api/category/create", {
+      const res = await fetch(`${BACKEND}/api/category/create`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -117,7 +118,7 @@ function Categories() {
     try {
       setDeleteLoading(id);
 
-      const res = await fetch(`/api/category/delete/${id}`, {
+      const res = await fetch(`${BACKEND}/api/category/delete/${id}`, {
         method: "DELETE",
       });
 
@@ -145,7 +146,7 @@ function Categories() {
     try {
       setUpdateLoading(true);
 
-      const res = await fetch(`/api/category/update/${id}`, {
+      const res = await fetch(`${BACKEND}/api/category/update/${id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

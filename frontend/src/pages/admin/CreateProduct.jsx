@@ -3,6 +3,7 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
 function CreateProduct() {
+      const BACKEND = import.meta.env.VITE_BACKEND_URL;
   const [categories, setCategories] = useState([]);
   const [file, setFile] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -21,7 +22,7 @@ function CreateProduct() {
   // FETCH CATEGORIES
   const fetchCategories = async () => {
     try {
-      const res = await fetch("/api/category/fetch-all");
+      const res = await fetch(`${BACKEND}/api/category/fetch-all`);
       const data = await res.json();
 
       if (!res.ok || data.success === false) {
@@ -81,7 +82,7 @@ function CreateProduct() {
     e.preventDefault();
     try {
       setLoading(true);
-      const res = await fetch("/api/product/create", {
+      const res = await fetch(`${BACKEND}/api/product/create`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

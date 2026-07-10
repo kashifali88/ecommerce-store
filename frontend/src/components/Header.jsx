@@ -10,6 +10,7 @@ import { toast } from "react-toastify";
 import { fetchCartFailure, fetchCartStart, fetchCartSuccess } from "../redux/cartSlice";
 
 function Header() {
+    const BACKEND = import.meta.env.VITE_BACKEND_URL;
   const [profileMenuOpen, setProfileMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const { currentUser } = useSelector((state) => state.auth);
@@ -21,7 +22,7 @@ const { totalQuantity } = useSelector((state) => state.cart)
   const handleLogOut = async () => {
     try {
       dispatch(logOutStart());
-      const res = await fetch("/api/auth/logout", {
+      const res = await fetch(`${BACKEND}/api/auth/logout`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -44,7 +45,7 @@ const { totalQuantity } = useSelector((state) => state.cart)
   const fetchUserCart = async() => {
     try {
       dispatch(fetchCartStart())
-      const res = await fetch("/api/cart",{
+      const res = await fetch(`${BACKEND}/api/cart`,{
       credentials:"include"
     })
     const data = await res.json();
@@ -62,7 +63,7 @@ const { totalQuantity } = useSelector((state) => state.cart)
   const searchProducts = async(query,e) => {
     e.preventDefault();
     try {
-      const res = await fetch(`/api/product/search?query=${query}`);
+      const res = await fetch(`${BACKEND}/api/product/search?query=${query}`);
       const data = await res.json();
       if(!res.ok || data.success === false) {
         toast.error(data.message || "Failed to search products");

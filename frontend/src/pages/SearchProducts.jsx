@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import Spinner from "../components/Spinner";
 
 function SearchProducts() {
+      const BACKEND = import.meta.env.VITE_BACKEND_URL;
   const [searchParams] = useSearchParams();
   const query = searchParams.get("query") || "";
 
@@ -15,7 +16,7 @@ function SearchProducts() {
       setLoading(true);
 
       const res = await fetch(
-        `/api/product/search?query=${encodeURIComponent(query)}`
+        `${BACKEND}/api/product/search?query=${encodeURIComponent(query)}`
       );
 
       const data = await res.json();

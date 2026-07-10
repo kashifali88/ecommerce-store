@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import Spinner from "../components/Spinner";
 
 function FilterProducts() {
+      const BACKEND = import.meta.env.VITE_BACKEND_URL;
   const { category } = useParams();
 
   const [products, setProducts] = useState([]);
@@ -15,7 +16,7 @@ function FilterProducts() {
     try {
       setLoading(true);
 
-      const res = await fetch(`/api/product/category/${categoryName}`);
+      const res = await fetch(`${BACKEND}/api/product/category/${categoryName}`);
       const data = await res.json();
 
       if (!res.ok || data.success === false) {

@@ -10,6 +10,7 @@ import Spinner from '../components/Spinner'
 
 
 function Login() {
+         const BACKEND = import.meta.env.VITE_BACKEND_URL;
     const [showPassword, setShowPassword] = useState(false);
     const [formData, setFormData] = useState({
       login: "",
@@ -36,7 +37,7 @@ function Login() {
       e.preventDefault();
       try {
         dispatch(loginStart());
-        const res= await fetch("/api/auth/login", {
+        const res= await fetch(`${BACKEND}/api/auth/login`, {
           method: "POST",
           headers :{
             "Content-Type": "application/json"

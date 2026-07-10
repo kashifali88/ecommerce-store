@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 
  const Checkout = () => {
+      const BACKEND = import.meta.env.VITE_BACKEND_URL;
     const [formData, setFormData] = useState({
   firstName: "",
   lastName: "",
@@ -51,7 +52,7 @@ const orderData = {
     totalAmount: total,
   };
 try {
-    const res = await fetch("/api/order/create", {
+    const res = await fetch(`${BACKEND}/api/order/create`, {
         method: "POST",
         headers :{
             "Content-Type": "application/json"
@@ -69,7 +70,7 @@ try {
         return;
     }
     if(formData.paymentMethod === "card") {
-        const stripeRes = await fetch("/api/payment/create-checkout-session", {
+        const stripeRes = await fetch(`${BACKEND}/api/payment/create-checkout-session`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

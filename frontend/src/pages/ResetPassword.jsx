@@ -3,6 +3,8 @@ import { useNavigate, useParams, Link } from "react-router-dom";
 import { toast } from "react-toastify";
 
 const ResetPassword = () => {
+      const BACKEND = import.meta.env.VITE_BACKEND_URL;
+
   const { token } = useParams();
   const navigate = useNavigate();
 
@@ -36,7 +38,7 @@ const ResetPassword = () => {
     try {
       setLoading(true);
 
-      const res = await fetch(`/api/auth/reset-password/${token}`, {
+      const res = await fetch(`${BACKEND}/api/auth/reset-password/${token}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

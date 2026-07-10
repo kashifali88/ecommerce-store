@@ -4,15 +4,15 @@ import { Link } from "react-router-dom";
 import Spinner from "./Spinner";
 
 function CategoryList() {
+  const BACKEND = import.meta.env.VITE_BACKEND_URL;
   const [loading, setLoading] = useState(false);
   const [categories, setCategories] = useState([]);
 
   const categoryLoading = new Array(13).fill(null);
-
   const fetchCategory = async () => {
     try {
       setLoading(true);
-      const res = await fetch("/api/category/fetch-all");
+      const res = await fetch(`${BACKEND}/api/category/fetch-all`);
       const data = await res.json();
       if (!res.ok || data.success === false) {
         toast.error(data.message);

@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux";
 import { addToCartFailure, addToCartStart, addToCartSuccess } from '../redux/cartSlice'
 
 function HorizontalCard({ category, heading }) {
+  const BACKEND = import.meta.env.VITE_BACKEND_URL;
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState([]);
   const [scroll, setScroll] = useState(0);
@@ -18,7 +19,7 @@ function HorizontalCard({ category, heading }) {
     try {
       setLoading(true);
 
-      const response = await fetch(`/api/product/category/${category}`);
+      const response = await fetch(`${BACKEND}/api/product/category/${category}`);
       const result = await response.json();
       if(!response.ok || result.success === false){
         toast.error("Failed to fetch products", {
@@ -47,7 +48,7 @@ function HorizontalCard({ category, heading }) {
 const handleAddToCart = async (productId) => {
 try {
     dispatch(addToCartStart())
-    const res = await fetch("/api/cart/add", {
+    const res = await fetch(`${BACKEND}/api/cart/add`, {
         method: 'POST',
         headers: {
             "Content-Type": "application/json"

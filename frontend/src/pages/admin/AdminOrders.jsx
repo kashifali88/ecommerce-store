@@ -3,13 +3,14 @@ import { FaBox } from "react-icons/fa";
 import { toast } from "react-toastify";
 
 const AdminOrders = () => {
+      const BACKEND = import.meta.env.VITE_BACKEND_URL;
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
 
 
   const fetchAllOrders = async () => {
     try {
-      const res = await fetch("/api/order/admin/orders", {
+      const res = await fetch(`${BACKEND}/api/order/admin/orders`, {
         credentials: "include",
       });
 

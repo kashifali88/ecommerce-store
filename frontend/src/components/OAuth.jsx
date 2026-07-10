@@ -10,6 +10,7 @@ import { loginStart, loginFailure, loginSuccess, clearError } from '../redux/aut
 
 
 function OAuth() {
+  const BACKEND = import.meta.env.VITE_BACKEND_URL;
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -24,7 +25,7 @@ function OAuth() {
       const auth = getAuth(app);
       const result = await signInWithPopup(auth, provider);
       dispatch(loginStart())
-      const res = await fetch("/api/auth/google", {
+      const res = await fetch(`${BACKEND}/api/auth/google`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"

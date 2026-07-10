@@ -25,6 +25,7 @@ import {
 import { Link, useNavigate } from 'react-router-dom'
 
 const Account = () => {
+      const BACKEND = import.meta.env.VITE_BACKEND_URL;
   const [file, setFile] = useState(null);
   const [deleteModelOpen, setDeleteModelOpen] = useState(false)
   const [deletePassword, setDeletePassword] = useState("");
@@ -130,7 +131,7 @@ const Account = () => {
        if (file) {
          avatar = await handleImageUpload();
        }
-       const res = await fetch("/api/user/update", {
+       const res = await fetch(`${BACKEND}/api/user/update`, {
          method: "PUT",
          headers: {
            "Content-Type": "application/json"
@@ -161,7 +162,7 @@ const Account = () => {
 const handleLogout = async () => {
   try {
     dispatch(logOutStart());
-    const res = await fetch("/api/auth/logout", {
+    const res = await fetch(`${BACKEND}/api/auth/logout`, {
       method:"POST",
       credentials: "include"
     })
@@ -188,7 +189,7 @@ const handleDeleteAccount = async() => {
   }
   try {
     dispatch(deleteUserStart())
-    const res = await fetch("/api/user/delete", {
+    const res = await fetch(`${BACKEND}/api/user/delete`, {
       method: "DELETE",
       credentials:"include",
       headers: {

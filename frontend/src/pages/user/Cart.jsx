@@ -13,6 +13,7 @@ import {
 } from "../../redux/cartSlice";
 
 function UserCart() {
+      const BACKEND = import.meta.env.VITE_BACKEND_URL;
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const {
@@ -27,7 +28,7 @@ function UserCart() {
     try {
       dispatch(fetchCartStart());
 
-      const res = await fetch("/api/cart", {
+      const res = await fetch(`${BACKEND}/api/cart`, {
         credentials: "include",
       });
 
@@ -49,7 +50,7 @@ function UserCart() {
   //  update cart api
   const handleUpdateCart = async (itemId, quantity) => {
     try {
-      const res = await fetch("/api/cart/update", {
+      const res = await fetch(`${BACKEND}/api/cart/update`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -72,7 +73,7 @@ function UserCart() {
   //   delete cart api
   const deleteCartItem = async (itemId) => {
     try {
-      const res = await fetch(`/api/cart/delete/${itemId}`, {
+      const res = await fetch(`${BACKEND}/api/cart/delete/${itemId}`, {
         method: "DELETE",
         credentials: "include",
       });

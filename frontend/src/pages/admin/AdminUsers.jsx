@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import Spinner from "../../components/Spinner";
 
 function AdminUsers() {
+      const BACKEND = import.meta.env.VITE_BACKEND_URL;
   const [loading, setLoading] = useState(false);
   const [deleteLoading, setDeleteLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -19,7 +20,7 @@ function AdminUsers() {
     try {
       setLoading(true);
       setError(null);
-      const res = await fetch("/api/user/admin/get-users", {
+      const res = await fetch(`${BACKEND}/api/user/admin/get-users`, {
         credentials: "include",
       });
       const data = await res.json();
@@ -44,7 +45,7 @@ function AdminUsers() {
       return;
     }
 try {
-  const res = await fetch(`/api/user/admin/update-role/${id}`,{
+  const res = await fetch(`${BACKEND}/api/user/admin/update-role/${id}`,{
     method: "PUT",
     headers: {
       "Content-Type": "application/json"
@@ -75,7 +76,7 @@ setUsers((prev) => prev.map((u) => u._id === id ? {...u, role:newRole} : u))
     try {
       setDeleteLoading(true);
       setError(null);
-      const res = await fetch(`/api/user/admin/delete-user/${id}`, {
+      const res = await fetch(`${BACKEND}/api/user/admin/delete-user/${id}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",

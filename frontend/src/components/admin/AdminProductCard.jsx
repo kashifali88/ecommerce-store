@@ -5,11 +5,12 @@ import { toast } from "react-toastify";
 
 
 export default function AdminProductCard({ product, setProducts }) {
+      const BACKEND = import.meta.env.VITE_BACKEND_URL;
   const navigate = useNavigate();
   
   const handleDeleteProduct = async(id) => {
     try {
-      const res = await fetch(`/api/product/delete/${id}`, {
+      const res = await fetch(`${BACKEND}/api/product/delete/${id}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json"

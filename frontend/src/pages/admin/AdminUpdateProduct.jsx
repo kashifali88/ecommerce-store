@@ -3,6 +3,7 @@ import { toast } from "react-toastify";
 import { useNavigate, useParams } from "react-router-dom";
 
 function AdminUpdateProduct() {
+      const BACKEND = import.meta.env.VITE_BACKEND_URL;
   const [categories, setCategories] = useState([]);
   const [file, setFile] = useState(null);
   const [loading, setLoading]= useState(false)
@@ -22,7 +23,7 @@ function AdminUpdateProduct() {
   // FETCH CATEGORIES
   const fetchCategories = async () => {
     try {
-      const res = await fetch("/api/category/fetch-all");
+      const res = await fetch(`${BACKEND}/api/category/fetch-all`);
       const data = await res.json();
 
       if (!res.ok || data.success === false) {
@@ -49,7 +50,7 @@ function AdminUpdateProduct() {
       const data = new FormData();
       data.append("file", file);
 
-      const res = await fetch("/api/upload", {
+      const res = await fetch(`${BACKEND}/api/upload`, {
         method: "POST",
         body: data,
       });
@@ -73,7 +74,7 @@ function AdminUpdateProduct() {
 //   fetch product
  const fetchProduct = async () => {
     try {
-        const res = await fetch(`/api/product/fetch-single/${id}`,{
+        const res = await fetch(`${BACKEND}/api/product/fetch-single/${id}`,{
             credentials: 'include'
         })
         const data = await res.json();
@@ -106,7 +107,7 @@ function AdminUpdateProduct() {
     e.preventDefault();
     try {
       setLoading(true);
-      const res = await fetch(`/api/product/update/${id}`, {
+      const res = await fetch(`${BACKEND}/api/product/update/${id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

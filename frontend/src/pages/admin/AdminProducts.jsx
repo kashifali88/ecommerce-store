@@ -3,6 +3,7 @@ import { toast } from 'react-toastify';
 import AdminProductCard from '../../components/admin/AdminProductCard';
 
 function AdminProducts() {
+      const BACKEND = import.meta.env.VITE_BACKEND_URL;
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [products, setProducts] = useState([]);
@@ -13,7 +14,7 @@ function AdminProducts() {
     setLoading(true);
     setError(null);
     try {
-       const res = await fetch("/api/product/fetch-all");
+       const res = await fetch(`${BACKEND}/api/product/fetch-all`);
     const data = await res.json();    
     if (!res.ok || data.success === false) {
       setError(data.message || "Failed to fetch products");

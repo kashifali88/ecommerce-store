@@ -3,7 +3,7 @@ import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
 
 const ForgotPassword = () => {
-
+    const BACKEND = import.meta.env.VITE_BACKEND_URL;
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -12,7 +12,7 @@ const ForgotPassword = () => {
     e.preventDefault();
     try {
       setLoading(true);
-      const res = await fetch("/api/auth/forgot-password",{
+      const res = await fetch(`${BACKEND}/api/auth/forgot-password`,{
         method:"POST",
         headers:{
           "Content-Type":"application/json"
