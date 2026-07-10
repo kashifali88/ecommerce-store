@@ -18,7 +18,7 @@ dotenv.config();
 const server = express();
 
 server.use(cors({
-    origin: "https://ecommerce-store-1-ir1b.onrender.com",
+    origin: import.meta.env.CLIENT_URL,
     credentials: true
 }));
 server.use(express.json());

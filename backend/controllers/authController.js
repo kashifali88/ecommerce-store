@@ -54,10 +54,12 @@ export const login = catchAsyncError(async (req, res, next) => {
     process.env.JWT_SECRET_KEY,
     { expiresIn: "7d" },
   );
-  res.cookie("token", token, {
-    httpOnly: true,
-    maxAge: 7 * 24 * 60 * 60 * 1000
-  });
+ res.cookie("token", token, {
+  httpOnly: true,
+  secure: true,
+  sameSite: "none",
+  maxAge: 7 * 24 * 60 * 60 * 1000,
+});
   const { password: pass, ...userInfo } = user._doc;
   res
     .status(200)
@@ -82,10 +84,12 @@ if (existingUser) {
     { expiresIn: "7d" }
   );
 
-  res.cookie("token", token, {
-    httpOnly: true,
-    maxAge: 7 * 24 * 60 * 60 * 1000,
-  });
+ res.cookie("token", token, {
+  httpOnly: true,
+  secure: true,
+  sameSite: "none",
+  maxAge: 7 * 24 * 60 * 60 * 1000,
+});
 
   const { password, ...userInfo } = existingUser._doc;
 
@@ -116,9 +120,11 @@ if (existingUser) {
          { expiresIn: '7d' }
         )
         res.cookie("token", token, {
-            httpOnly:true,
-            maxAge: 7 * 24 * 60 * 60 * 1000
-        })
+  httpOnly: true,
+  secure: true,
+  sameSite: "none",
+  maxAge: 7 * 24 * 60 * 60 * 1000,
+});
         const { password: passCode, ...userDetails } = newUser._doc;
         return res.status(200).json({
             success: true,
