@@ -18,7 +18,7 @@ dotenv.config();
 const server = express();
 
 server.use(cors({
-    origin: import.meta.env.CLIENT_URL,
+    origin: process.env.CLIENT_URL,
     credentials: true
 }));
 server.use(express.json());
