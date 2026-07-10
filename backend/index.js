@@ -18,7 +18,8 @@ dotenv.config();
 const server = express();
 
 server.use(cors({
-    origin: "*"
+    origin: "https://ecommerce-store-1-ir1b.onrender.com",
+    credentials: true
 }));
 server.use(express.json());
 server.use(cookieParser());
