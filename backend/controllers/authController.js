@@ -54,7 +54,7 @@ export const login = catchAsyncError(async (req, res, next) => {
     process.env.JWT_SECRET_KEY,
     { expiresIn: "7d" },
   );
- res.cookie("token", token, {
+res.cookie("token", token, {
   httpOnly: true,
   secure: true,
   sameSite: "none",
@@ -119,7 +119,7 @@ if (existingUser) {
          process.env.JWT_SECRET_KEY,
          { expiresIn: '7d' }
         )
-        res.cookie("token", token, {
+   res.cookie("token", token, {
   httpOnly: true,
   secure: true,
   sameSite: "none",

@@ -32,31 +32,39 @@ function Register() {
     }
 
     // submit form data to backend
-    const handleSubmit = async(e) => {
-      e.preventDefault();
-      try {
-        dispatch(registerStart());
-      const res = await fetch(`${BACKEND}/api/auth/register`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(formData)
-      })
-      const data = await res.json();
-        
-      if (!res.ok || data.success === false) {
-        dispatch(registerFailure(data.message || "Registration failed"));
-        toast.error(data.message || "Registration failed");
-        return;
-      }
-       dispatch(registerSuccess(data.user));
-      toast.success("Registration successful");
-      navigate("/login")
-      } catch (error) {
-        dispatch(registerFailure("An error occurred during registration"));
-      }
+const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  try {
+    dispatch(registerStart());
+
+    const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/auth/register`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    });
+
+    const data = await res.json();
+
+    if (!res.ok || data.success === false) {
+      dispatch(registerFailure(data.message || "Registration failed"));
+      toast.error(data.message || "Registration failed");
+      return;
     }
+
+    dispatch(registerSuccess(data.user));
+    toast.success("Registration successful");
+    navigate("/login");
+
+  } catch (error) {
+    console.error("Registration error:", error);
+
+    dispatch(registerFailure(error.message || "Registration failed"));
+    toast.error(error.message || "An error occurred during registration");
+  }
+};
 
   return (
    <div className="container mx-auto px-4 min-h-screen">

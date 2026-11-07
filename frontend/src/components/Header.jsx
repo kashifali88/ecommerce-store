@@ -23,6 +23,7 @@ const { totalQuantity } = useSelector((state) => state.cart)
     try {
       dispatch(logOutStart());
       const res = await fetch(`${BACKEND}/api/auth/logout`, {
+        credentials: "include",
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -44,7 +44,7 @@ const Account = () => {
 
   // upload image
   const handleImageUpload = async () => {
-    const data = new FormData();
+    const data = new FormData(); 
     data.append("file", file);
     data.append(
       "upload_preset",

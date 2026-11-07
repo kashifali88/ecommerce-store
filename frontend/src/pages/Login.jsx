@@ -33,33 +33,39 @@ function Login() {
     }
 
     // submitting form
-    const handleSubmit = async (e) => {
-      e.preventDefault();
-      try {
-        dispatch(loginStart());
-        const res= await fetch(`${BACKEND}/api/auth/login`, {
-          method: "POST",
-          headers :{
-            "Content-Type": "application/json"
-          },
-          credentials: "include",
-          body: JSON.stringify(formData)
-        });
-        const data = await res.json();
-        if (!res.ok || data.success === false) {
-          dispatch(loginFailure(data.message || "failed to login"))
-          toast.error(data.message || "failed to login");
-          return;
-        }
-        dispatch(loginSuccess(data.user));        
-        toast.success("Login In successful")
-        navigate("/")
+  // submitting form
+const handleSubmit = async (e) => {
+  e.preventDefault();
 
-      } catch (error) {
-        dispatch(loginFailure(error.message))
-        toast.error(error.message)
-      }
+  try {
+    dispatch(loginStart());
+
+    const res = await fetch(`${BACKEND}/api/auth/login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+      body: JSON.stringify(formData),
+    });
+
+    const data = await res.json();
+
+    if (!res.ok || data.success === false) {
+      dispatch(loginFailure(data.message || "Failed to login"));
+      toast.error(data.message || "Failed to login");
+      return;
     }
+
+    dispatch(loginSuccess(data.user));
+    toast.success("Login successful");
+    navigate("/");
+
+  } catch (error) {
+    dispatch(loginFailure(error.message));
+    toast.error(error.message);
+  }
+};
     
   return (
    <div className="container mx-auto px-4 min-h-screen">

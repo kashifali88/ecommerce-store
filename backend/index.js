@@ -18,7 +18,7 @@ dotenv.config();
 const server = express();
 
 server.use(cors({
-    origin: process.env.CLIENT_URL,
+    origin: "https://ecommerce-store-oqi5.onrender.com",
     credentials: true
 }));
 server.use(express.json());
